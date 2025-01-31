@@ -82,14 +82,6 @@ void runWorkload(Options& op, WriteOptions& write_op, ReadOptions& read_op) {
     workload_file.open("workload.txt");
     assert(workload_file);
 
-    // Clearing the system cache
-    std::cout << "Clearing system cache ..." << std::endl;
-    int clean_flag = system("sudo sh -c 'echo 3 >/proc/sys/vm/drop_caches'");
-    if (clean_flag) {
-        std::cerr << "Cannot clean the system cache" << std::endl;
-        exit(0);
-    }
-
     Iterator* it = db->NewIterator(read_op); // for range reads
     uint64_t counter = 0; // for progress bar
 
